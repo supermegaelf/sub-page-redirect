@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect</title>
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        const hiddifyUrl = getParameterByName('hiddify_url');
+
+        if (hiddifyUrl) {
+            window.location.href = hiddifyUrl;
+        } else {
+            document.body.innerHTML = '<p>Ошибка: ссылка не найдена.</p>';
+        }
+    </script>
+</head>
+<body>
+    <p>Redirect...</p>
+</body>
+</html>
